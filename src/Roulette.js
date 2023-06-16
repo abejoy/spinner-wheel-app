@@ -3,53 +3,49 @@ import { Wheel } from 'react-custom-roulette'
 import { textCenter } from './App';
 
 const myData = [
-  { id:1, option: "Manchester Unit"},
-  { id:2, option: "Manchester youth"},
-  { id:3, option: "GKCYL"},
-  { id:4, option: "Scotland KCYL"},
-  { id:5, option: "Liverpool KCYL"},
-  { id:6, option: "Skca fc"},
-  { id:7, option: "SKCYL FC JN"},
-  { id:8, option: "Stevenage"},
-  { id:9, option: "North West London Ballers"},
-  { id:10, option: "London Royals"},
-  { id:11, option: "Birmingham Blasters"},
-  { id:12, option: "Cambridge United"},
-  { id:13, option: "SW's Finest"},
-  { id:14, option: "Azzurri	combined"},
-  { id:15, option: "Coventry & Warwickshire"},
-  { id:16, option: "Peterborough KCYL "},
-  { id:17, option: "Worcester Wolves"},
-  { id:18, option: "Ballers FC"},
-  { id:19, option: "LCB"},
-  { id:20, option: "AFC PoolMouth"}
+  { id:1, option: "Manchester KCYL"},
+  { id:2, option: "Gloucestershire KCYL"},
+  { id:3, option: "Scotland KCYL"},
+  { id:4, option: "Liverpool KCYL"},
+  { id:5, option: "Skca fc"},
+  { id:6, option: "SKCYL FC JN"},
+  { id:7, option: "Stevenage"},
+  { id:8, option: "North West London Ballers"},
+  { id:9, option: "London Royals"},
+  { id:10, option: "Birmingham Blasters"},
+  { id:11, option: "SW's Finest"},
+  { id:12, option: "Coventry & Warwickshire KCYL FC"},
+  { id:13, option: "Peterborough KCYL football team"},
+  { id:14, option: "Worcester-KCYL"},
+  { id:15, option: "LCB"},
+  { id:16, option: "AFC PoolMouth"},
+  { id:17, option: "East Anglia"},
+  { id:18, option: "Cambridge United"},
+  
 ];
 
 const mytextColors = [
   "White",
   "Black",
+  "White",
+  "White",
+  "White",
+  "White",
+  "White",
+  "White",
+  "White",
+  "Black",
+  "Black",
+  "Black",
+  "Black",
+  "Black",
+  "Black",
   "Black",
   "White",
   "Black",
-  "White",
-  "Black",
-  "White",
-  "Black",
-  "White",
-  "Black",
-  "Black",
-  "Black",
-  "Black",
-  "Black",
-  "Black",
-  "Black",
-  "Black",
-  "Black",
-  "Black"
 ];
 
 const mycolours = [
-  "Black",
   "Purple",
   "Pink",
   "Black",
@@ -60,21 +56,20 @@ const mycolours = [
   "Red",
   "Black",
   "White",
-  "Yellow",
   "White",
-  "LightBlue",
   "Orange",
   "Green",
   "Orange",
-  "Pink",
   "Green",
-  "Yellow"
+  "Yellow",
+  "Purple",
+  "Yellow",
 ]
 const Roulette = React.forwardRef((props, ref) => {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
   const [data, setData] = useState(myData);
-  const [drawOrder, setDrawOrder] = useState([3,2,1,4,5,6,9,8,7,10,11,12,13,14,16,15,18,17,19,20]);
+  const [drawOrder, setDrawOrder] = useState([4,11,10,18,6, 15,13,7,3,1, 16,8,5,14, 9,17,2,12]);
   const [colours, setColours] = useState(mycolours)
   const [textColors, setTextColors] = useState(mytextColors)
 
