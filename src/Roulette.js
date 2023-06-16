@@ -15,7 +15,7 @@ const myData = [
   { id:10, option: "Birmingham Blasters"},
   { id:11, option: "SW's Finest"},
   { id:12, option: "Coventry & Warwickshire KCYL FC"},
-  { id:13, option: "Knanaya Challengers FC, Peterborough"},
+  { id:13, option: "Knanaya Challengers FC"},
   { id:14, option: "Worcester-KCYL"},
   { id:15, option: "LCB"},
   { id:16, option: "AFC PoolMouth"},
