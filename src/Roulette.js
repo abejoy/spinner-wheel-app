@@ -1,99 +1,88 @@
-import React, { useState } from 'react'
-import { Wheel } from 'react-custom-roulette'
-import { textCenter } from './App';
+import React, { useState } from "react";
+import { Wheel } from "react-custom-roulette";
+import { textCenter } from "./App";
 
 const myData = [
-  { id:1, option: "Manchester KCYL"},
-  { id:2, option: "Gloucestershire KCYL"},
-  { id:3, option: "Scotland KCYL"},
-  { id:4, option: "Liverpool KCYL"},
-  { id:5, option: "Skca fc"},
-  { id:6, option: "SKCYL FC JN"},
-  { id:7, option: "Stevenage"},
-  { id:8, option: "North West London Ballers"},
-  { id:9, option: "London Royals"},
-  { id:10, option: "Birmingham Blasters"},
-  { id:11, option: "SW's Finest"},
-  { id:12, option: "Coventry & Warwickshire KCYL FC"},
-  { id:13, option: "Knanaya Challengers FC"},
-  { id:14, option: "Worcester-KCYL"},
-  { id:15, option: "LCB"},
-  { id:16, option: "AFC PoolMouth"},
-  { id:17, option: "East Anglia"},
-  { id:18, option: "Cambridge United"},
-  
+  { id: 1, option: "MKCYL" },
+  { id: 2, option: "Scotland KCYL" },
+  { id: 3, option: "Cambridge united" },
+  { id: 4, option: "BCN Boys" },
+  { id: 5, option: "Kent Krusaders" },
+  { id: 6, option: "London Royals" },
+  { id: 7, option: "Thekkan Strikers" },
+  { id: 8, option: "Liverpool KCYL" },
+  { id: 9, option: "Coventry & Warwickshire" },
+  { id: 10, option: "Bedford and Stevenage" },
+  { id: 11, option: "Holy Kings Knanaya FC" },
+  { id: 12, option: "Thommans FC" },
+  { id: 13, option: "Birmingham Blasters" },
+  { id: 14, option: "London Second Team" },
 ];
 
 const mytextColors = [
   "White",
   "Black",
-  "White",
-  "White",
+  "Black",
   "White",
   "White",
   "White",
   "White",
   "White",
   "Black",
-  "Black",
-  "Black",
-  "Black",
+  "White",
   "Black",
   "Black",
   "Black",
   "White",
-  "Black",
 ];
 
 const mycolours = [
-  "Purple",
+  "Black",
+  "Brown",
+  "Yellow",
+  "Green",
+  "Blue",
+  "Black",
+  "Green",
+  "Red",
+  "White",
+  "Blue",
   "Pink",
-  "Black",
   "Red",
-  "DarkBlue",
-  "LightBlue",
-  "DarkBlue",
-  "Red",
-  "Black",
   "White",
-  "White",
-  "Orange",
-  "Green",
-  "Orange",
-  "Green",
-  "Yellow",
-  "Purple",
-  "Yellow",
-]
+  "Blue",
+];
 const Roulette = React.forwardRef((props, ref) => {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
   const [data, setData] = useState(myData);
-  const [drawOrder, setDrawOrder] = useState([4,11,10,18,6, 15,13,7,3,1, 16,8,5,14, 9,17,2,12]);
-  const [colours, setColours] = useState(mycolours)
-  const [textColors, setTextColors] = useState(mytextColors)
+  const [drawOrder, setDrawOrder] = useState([
+    9, 7, 6, 5, 12, 1, 11, 8, 2, 14, 4, 13, 3, 10,
+  ]);
+  const [colours, setColours] = useState(mycolours);
+  const [textColors, setTextColors] = useState(mytextColors);
 
   const handleSpinClick = () => {
     if (!mustSpin) {
       const idToGet = drawOrder[0];
-      const newPrizeIndex=  data.findIndex(team => team.id === idToGet);
-      
+      const newPrizeIndex = data.findIndex((team) => team.id === idToGet);
+
       setPrizeNumber(newPrizeIndex);
       setMustSpin(true);
       props.updateSpinning(true);
     }
-  }
+  };
 
   const stopSpinnig = () => {
     setMustSpin(false);
     props.updateSpinning(false);
-    const teamName = data.at(prizeNumber).option
+    const teamName = data.at(prizeNumber).option;
     props.onResultGiven(teamName);
-  }
+  };
 
   const removeTeam = () => {
     const tempData = [...data];
-    tempData.splice(prizeNumber, 1)
+    tempData.splice(prizeNumber, 1);
     setData(tempData);
 
     const tempColours = [...colours];
@@ -107,16 +96,15 @@ const Roulette = React.forwardRef((props, ref) => {
     const copydrawOrder = [...drawOrder];
     copydrawOrder.splice(0, 1);
     setDrawOrder(copydrawOrder);
-  }
+  };
 
   // Assign the ref to the component
   React.useImperativeHandle(ref, () => ({
-    removeTeam: removeTeam
+    removeTeam: removeTeam,
   }));
 
   return (
-
-    <div style={textCenter} >
+    <div style={textCenter}>
       <Wheel
         mustStartSpinning={mustSpin}
         prizeNumber={prizeNumber}
@@ -125,12 +113,11 @@ const Roulette = React.forwardRef((props, ref) => {
         textColors={textColors}
         fontSize={10}
         radius={250}
-
         onStopSpinning={stopSpinnig}
       />
       <button onClick={handleSpinClick}>SPIN</button>
     </div>
-  )
+  );
 });
 
 export default Roulette;
