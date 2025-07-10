@@ -17,7 +17,7 @@ export const textCenter = {
 
 const App = () => {
 
-  const [result, setResult] = useState('Team');
+  const [result, setResult] = useState('');
   const [isSpinning, setSpinning] = useState(false);
   const rouletteRef = useRef();
 
@@ -28,7 +28,7 @@ const App = () => {
   const updateSpinning = (val) => {
     setSpinning(val);
     if (val) {
-      setResult('Spinning')
+      setResult('Spinning...')
     }
   }
 
@@ -49,15 +49,7 @@ const App = () => {
       </div>
       <div style={fullWidth}>
         <div style={textCenter}>
-          Result:
-        </div>
-        <div style={textCenter}>
           {result}
-        </div>
-        <div style={textCenter}>
-        {!isSpinning && result !== 'Team' && (
-          <button onClick={callRemoveTeam}> Remove {result} </button>
-        )}
         </div>
       </div>
     </div>

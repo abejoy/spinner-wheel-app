@@ -4,7 +4,7 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { Wheel } from "react-custom-roulette";
-import { textCenter } from "./App";
+import confetti from "canvas-confetti"; // 🎉 Confetti import
 
 // ------------------------
 // CONSTANTS
@@ -27,37 +27,13 @@ const myData = [
 ];
 
 const mytextColors = [
-  "White",
-  "Black",
-  "Black",
-  "White",
-  "White",
-  "White",
-  "White",
-  "White",
-  "Black",
-  "White",
-  "Black",
-  "Black",
-  "Black",
-  "White",
+  "White", "Black", "Black", "White", "White", "White", "White",
+  "White", "Black", "White", "Black", "Black", "Black", "White",
 ];
 
 const mycolours = [
-  "Black",
-  "Brown",
-  "Yellow",
-  "Green",
-  "Blue",
-  "Black",
-  "Green",
-  "Red",
-  "White",
-  "Blue",
-  "Pink",
-  "Red",
-  "White",
-  "Blue",
+  "Black", "Brown", "Yellow", "Green", "Blue", "Black", "Green",
+  "Red", "White", "Blue", "Pink", "Red", "White", "Blue",
 ];
 
 // ------------------------
@@ -85,6 +61,18 @@ const modalStyle = {
   textAlign: "center",
 };
 
+const buttonStyle = {
+  margin: "0 10px",
+  padding: "0.6rem 1.2rem",
+  border: "none",
+  borderRadius: "6px",
+  backgroundColor: "#2563eb",
+  color: "#fff",
+  fontWeight: "600",
+  cursor: "pointer",
+};
+
+
 // ------------------------
 // COMPONENT
 // ------------------------
@@ -103,6 +91,10 @@ const Roulette = forwardRef((props, ref) => {
 
   // Popup state
   const [showPopup, setShowPopup] = useState(false);
+  const closeModalAndRemoveTeam = () => {
+    setShowPopup(false);
+    removeTeam();
+  }
   const [winner, setWinner] = useState("");
 
   // --------------------
@@ -110,10 +102,8 @@ const Roulette = forwardRef((props, ref) => {
   // --------------------
   const handleSpinClick = () => {
     if (!mustSpin) {
-      // Hide any previous popup
       setShowPopup(false);
 
-      // Determine next team to pick
       const idToGet = drawOrder[0];
       const newPrizeIndex = data.findIndex((team) => team.id === idToGet);
 
@@ -129,12 +119,38 @@ const Roulette = forwardRef((props, ref) => {
 
     const teamName = data.at(prizeNumber).option;
 
-    // 1. Show the result in‑app
     setWinner(teamName);
     setShowPopup(true);
-
-    // 2. Notify parent component (if needed)
     props.onResultGiven?.(teamName);
+
+    // 🎉 Prominent Confetti Animation
+    const duration = 2000;
+    const animationEnd = Date.now() + duration;
+
+    const defaults = {
+      startVelocity: 30,
+      spread: 360,
+      ticks: 60,
+      zIndex: 1000,
+    };
+
+    const interval = setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        return;
+      }
+
+      confetti({
+        ...defaults,
+        particleCount: 75,
+        origin: {
+          x: Math.random(),
+          y: Math.random() - 0.2,
+        },
+      });
+    }, 250);
   };
 
   const removeTeam = () => {
@@ -163,46 +179,82 @@ const Roulette = forwardRef((props, ref) => {
   // --------------------
   // RENDER
   // --------------------
-  return (
-    <div style={textCenter}>
-      <Wheel
-        mustStartSpinning={mustSpin}
-        prizeNumber={prizeNumber}
-        data={data}
-        backgroundColors={colours}
-        textColors={textColors}
-        fontSize={10}
-        radius={250}
-        onStopSpinning={stopSpinning}
-      />
+return (
+  <div
+    style={{
+      minHeight: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "column",
+      backgroundColor: "#fff",
+      textAlign: "center",
+    }}
+  >
+    <h1 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>Spinner Wheel</h1>
 
-      <button onClick={handleSpinClick}>SPIN</button>
+    <Wheel
+      mustStartSpinning={mustSpin}
+      prizeNumber={prizeNumber}
+      data={data}
+      backgroundColors={colours}
+      textColors={textColors}
+      fontSize={10}
+      radius={320}
+      onStopSpinning={stopSpinning}
+    />
 
-      {/* Popup with the selected team */}
-      {showPopup && (
+    <button
+      onClick={handleSpinClick}
+      style={{
+        marginTop: "2rem",
+        padding: "0.8rem 1.6rem",
+        fontSize: "1rem",
+        borderRadius: "8px",
+        border: "none",
+        backgroundColor: "#2563eb",
+        color: "#fff",
+        fontWeight: "bold",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+        cursor: "pointer",
+      }}
+    >
+      SPIN
+    </button>
+
+    {/* Modal popup only — not inline result */}
+    {showPopup && (
+      <div
+        style={overlayStyle}
+        onClick={() => setShowPopup(false)}
+        role="dialog"
+        aria-modal="true"
+      >
         <div
-          style={overlayStyle}
-          onClick={() => setShowPopup(false)}
-          role="dialog"
-          aria-modal="true"
+          style={modalStyle}
+          onClick={(e) => e.stopPropagation()}
         >
-          <div
-            style={modalStyle}
-            onClick={(e) => e.stopPropagation()} // Prevent overlay click
+          <p style={{ fontSize: "2rem", fontWeight: "700", marginBottom: "1.5rem" }}>
+            {winner}
+          </p>
+          {/* <button
+            onClick={removeTeam}
+            style={{
+              ...buttonStyle,
+              backgroundColor: "#ef4444",
+            }}
           >
-            <h2 style={{ marginBottom: "1rem" }}>Selected Team</h2>
-            <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>{winner}</p>
-            <button onClick={() => removeTeam(false)} style={{ marginTop: "1rem" }}>
-              Remove Team 
-            </button>
-            <button onClick={() => setShowPopup(false)} style={{ marginTop: "1rem" }}>
-              Close
-            </button>
-          </div>
+            Remove Team
+          </button> */}
+          <button onClick={() => closeModalAndRemoveTeam()} style={buttonStyle}>
+            Close
+          </button>
         </div>
-      )}
-    </div>
-  );
+      </div>
+    )}
+  </div>
+);
+
 });
 
 export default Roulette;
