@@ -2,3 +2,7 @@
   width: 500px; /* Adjust the width and height to make the wheel bigger */
   height: 500px;
 }
+.roulette-container{
+  scale: 1.8;
+  padding-left: 15rem;
+}

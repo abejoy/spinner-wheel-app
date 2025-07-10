@@ -10,30 +10,40 @@ import confetti from "canvas-confetti"; // 🎉 Confetti import
 // CONSTANTS
 // ------------------------
 const myData = [
-  { id: 1, option: "MKCYL" },
-  { id: 2, option: "Scotland KCYL" },
+  { id: 1, option: "Scotland KCYL" },
+  { id: 2, option: "BB blasters" },
   { id: 3, option: "Cambridge united" },
-  { id: 4, option: "BCN Boys" },
-  { id: 5, option: "Kent Krusaders" },
-  { id: 6, option: "London Royals" },
-  { id: 7, option: "Thekkan Strikers" },
-  { id: 8, option: "Liverpool KCYL" },
-  { id: 9, option: "Coventry & Warwickshire" },
-  { id: 10, option: "Bedford and Stevenage" },
-  { id: 11, option: "Holy Kings Knanaya FC" },
-  { id: 12, option: "Thommans FC" },
-  { id: 13, option: "Birmingham Blasters" },
-  { id: 14, option: "London Second Team" },
+  { id: 4, option: "London United" },
+  { id: 5, option: "BCN Boys" },
+  { id: 6, option: "Coventry KnaKnights" },
+  { id: 7, option: "Liverpool KCYL" },
+  { id: 8, option: "Oxford KCYL" },
+  { id: 9, option: "TEAM NORTHERN IRELAND" },
+  { id: 10, option: "Thommans FC" },
+  { id: 11, option: "Manchester Youth" },
+  { id: 12, option: "London FC" },
+  { id: 13, option: "LCB" },
 ];
 
 const mytextColors = [
   "White", "Black", "Black", "White", "White", "White", "White",
-  "White", "Black", "White", "Black", "Black", "Black", "White",
+  "White", "White", "Black", "White", "Black", "White",
 ];
 
 const mycolours = [
-  "Black", "Brown", "Yellow", "Green", "Blue", "Black", "Green",
-  "Red", "White", "Blue", "Pink", "Red", "White", "Blue",
+  "Black",
+"White",
+"Yellow",
+"Blue",
+"Red",
+"Purple",
+"Red",
+"Purple",
+"Green",
+"White",
+"Black",
+"Pink",
+"Blue",
 ];
 
 // ------------------------
@@ -84,8 +94,8 @@ const Roulette = forwardRef((props, ref) => {
   // Data state
   const [data, setData] = useState(myData);
   const [drawOrder, setDrawOrder] = useState([
-    9, 7, 6, 5, 12, 1, 11, 8, 2, 14, 4, 13, 3, 10,
-  ]);
+    5, 3, 1, 2, 10, 12, 6, 4, 7, 8, 11, 9, 13
+    ]);
   const [colours, setColours] = useState(mycolours);
   const [textColors, setTextColors] = useState(mytextColors);
 
