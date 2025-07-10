@@ -192,12 +192,12 @@ const Roulette = forwardRef((props, ref) => {
 return (
   <div
     style={{
-      minHeight: "100vh",
+      minHeight: "50vh",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
       flexDirection: "column",
-      backgroundColor: "#fff",
+      backgroundColor: "#d1d8b7",
       textAlign: "center",
     }}
   >
