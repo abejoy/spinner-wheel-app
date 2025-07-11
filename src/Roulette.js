@@ -26,39 +26,40 @@ const myData = [
 ];
 
 const mytextColors = [
-  "White", "Black", "Black", "White", "White", "White", "White",
-  "White", "White", "Black", "White", "Black", "White",
+  "Black", "Black", "Black", "Black", "Black", "Black", "Black",
+  "Black", "Black", "Black", "Black", "Black", "Black",
 ];
 
 const mycolours = [
-  "Black",
-"White",
-"Yellow",
-"Blue",
-"Red",
-"Purple",
-"Red",
-"Purple",
-"Green",
-"White",
-"Black",
-"Pink",
-"Blue",
+  "	#ffb3ba",
+"	#ffdfba",
+"#ffffba",
+"#baffc9",
+"	#bae1ff",
+"#ffb3ba",
+"#ffdfba",
+"	#ffffba",
+"#baffc9",
+"	#bae1ff",
+"#ffb3ba",
+"	#ffdfba",
+"	#ffffba",
 ];
 
 // ------------------------
 // STYLES
 // ------------------------
 const overlayStyle = {
-  position: "fixed",
+  position: "absolute",
   top: 0,
   left: 0,
   width: "100vw",
   height: "100vh",
-  backgroundColor: "rgba(0,0,0,0.6)",
+  // backgroundColor: "rgba(0,0,0,0.6)",
   display: "flex",
   justifyContent: "center",
-  alignItems: "center",
+  alignItems: "flex-start",
+  paddingTop: "10vh",
   zIndex: 999,
 };
 
@@ -194,43 +195,107 @@ return (
     style={{
       minHeight: "50vh",
       display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      flexDirection: "column",
+      justifyContent: "space-around",
+      alignItems: "flex-start",
+      flexDirection: "row",
       backgroundColor: "#d1d8b7",
       textAlign: "center",
+      gap: "2rem",
+      padding: "3rem 5rem",
     }}
   >
-    <h1 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>Spinner Wheel</h1>
+    {/* Left Input Box */}
+<div
+  style={{
+    width: "260px",
+    backgroundColor: "#ffffff",
+    borderRadius: "10px",
+    padding: "1rem 1rem 0.5rem",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
+  }}
+>
+  <h3
+    style={{
+      margin: "0 0 0.5rem",
+      fontWeight: "600",
+      fontSize: "1.1rem",
+      textAlign: "center",
+      color: "#333",
+    }}
+  >
+    Names
+  </h3>
+  <textarea
+    defaultValue={`Scotland KCYL
+BB blasters
+Cambridge united
+London United
+BCN Boys
+Coventry KnaKnights
+Liverpool KCYL
+Oxford KCYL
+TEAM NORTHERN IRELAND
+Thommans FC
+Manchester Youth
+London FC
+LCB`}
+    style={{
+      width: "100%",
+      minHeight: "370px",
+      resize: "none",
+      border: "1px solid #e0e0e0",
+      borderRadius: "6px",
+      padding: "0.75rem",
+      fontSize: "0.92rem",
+      lineHeight: "1.6",
+      backgroundColor: "#fafafa",
+      color: "#333",
+      boxSizing: "border-box",
+      outline: "none",
+    }}
+  />
+</div>
 
-    <Wheel
-      mustStartSpinning={mustSpin}
-      prizeNumber={prizeNumber}
-      data={data}
-      backgroundColors={colours}
-      textColors={textColors}
-      fontSize={10}
-      radius={320}
-      onStopSpinning={stopSpinning}
-    />
 
-    <button
-      onClick={handleSpinClick}
-      style={{
-        marginTop: "2rem",
-        padding: "0.8rem 1.6rem",
-        fontSize: "1rem",
-        borderRadius: "8px",
-        border: "none",
-        backgroundColor: "#2563eb",
-        color: "#fff",
-        fontWeight: "bold",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-        cursor: "pointer",
-      }}
-    >
-      SPIN
-    </button>
+
+
+    {/* Spinner and Button */}
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <h1 style={{ fontSize: "2.5rem", marginBottom: "-6rem" }}></h1>
+
+      <Wheel
+        mustStartSpinning={mustSpin}
+        prizeNumber={prizeNumber}
+        data={data}
+        backgroundColors={colours}
+        textColors={textColors}
+        fontSize={10}
+        radius={320}
+        onStopSpinning={stopSpinning}
+      />
+
+      <button
+        onClick={handleSpinClick}
+        style={{
+          marginTop: "2rem",
+          padding: "0.8rem 1.6rem",
+          fontSize: "1rem",
+          borderRadius: "8px",
+          border: "none",
+          backgroundColor: "#2563eb",
+          color: "#fff",
+          fontWeight: "bold",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+          cursor: "pointer",
+        }}
+      >
+        SPIN
+      </button>
+    </div>
 
     {/* Modal popup only — not inline result */}
     {showPopup && (
@@ -247,15 +312,6 @@ return (
           <p style={{ fontSize: "2rem", fontWeight: "700", marginBottom: "1.5rem" }}>
             {winner}
           </p>
-          {/* <button
-            onClick={removeTeam}
-            style={{
-              ...buttonStyle,
-              backgroundColor: "#ef4444",
-            }}
-          >
-            Remove Team
-          </button> */}
           <button onClick={() => closeModalAndRemoveTeam()} style={buttonStyle}>
             Close
           </button>
@@ -264,6 +320,8 @@ return (
     )}
   </div>
 );
+
+
 
 });
 

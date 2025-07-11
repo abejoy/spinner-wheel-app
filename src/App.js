@@ -62,23 +62,32 @@ const App = () => {
     <div style={{ backgroundColor: '#d1d8b7', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       
 
-      {/* MAIN CONTENT */}
-      <div style={{
-        // display: 'flex',
-        // flex: 1,
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        flexDirection: 'column',
-        padding: '2rem'
-      }}>
-        <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Spinner Wheel</h1>
-        <div className="roulette-container">
-          <Roulette onResultGiven={onResultGiven} updateSpinning={updateSpinning} ref={rouletteRef} />
-        </div>
-        <div style={{ marginTop: '2rem', fontSize: '1.5rem', fontWeight: 'bold' }}>
-          {result}
-        </div>
-      </div>
+{/* MAIN CONTENT */}
+<div style={{
+  display: 'flex',
+  flex: 1,
+  padding: '2rem',
+  backgroundColor: '#d1d8b7',
+}}>
+  {/* Left: Spinner */}
+  <div style={{ flex: '0 0 60%', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', paddingRight: '2rem', scale : '2', marginTop: '25rem' }}>
+    <Roulette onResultGiven={onResultGiven} updateSpinning={updateSpinning} ref={rouletteRef} />
+  </div>
+
+  {/* Right: Result Display */}
+  <div style={{
+    flex: '0 0 40%',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    color: '#000'
+  }}>
+    {result}
+  </div>
+</div>
+
     </div>
     </>
   );
